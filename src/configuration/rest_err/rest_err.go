@@ -14,28 +14,22 @@ type Cause struct {
 	Message string `json:"message"`
 }
 
-func NewRestErr(message, err string, code int, causes []Cause) *RestErr {
+func NewBadRequestError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err:     err,
-		Code:    code,
-		Causes:  causes,
+		Err:     "bad_request",
+		Code: http.StatusBadRequest,
 	}
 }
 
-// 400 - Bad Request
-func NewBadRequest(message string) *RestErr {
-	return NewRestErr(
-		message, "bad_request", 
-		http.StatusBadRequest, nil,
-	)
-}
 
 func NewBadRequestValidationError(message string, causes []Cause) *RestErr {
-	return NewRestErr(
-		message, "bad_request", 
-		http.StatusBadRequest, causes,
-	)
+	return &RestErr{
+		Message: message,
+		Err:     "bad_request",
+		Code:    http.StatusBadRequest,
+		Causes:  causes,
+	}
 }
 
 // 401 - Unauthorized
