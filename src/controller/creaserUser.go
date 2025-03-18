@@ -14,9 +14,10 @@ func CreatdUser(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&userRequest); err != nil{
 		restErr := rest_err.NewBadRequestError(
-			fmt.Sprintf("Temos campos incorretos, error=%s\n", err.Error()))
+			fmt.Sprintf("Existem campos incorretos no seu formulário"))
 		
 		c.JSON(restErr.Code, restErr)
+		println(err.Error())
 		return
 	}
 }
