@@ -6,10 +6,10 @@ type RestErr struct {
 	Message string  `json:"message"`
 	Err     string  `json:"error"`
 	Code    int     `json:"code"`
-	Causes  []Cause `json:"causes,omitempty"` // "omitempty" remove a chave JSON se a lista estiver vazia
+	Causes  []Causes `json:"causes,omitempty"` // "omitempty" remove a chave JSON se a lista estiver vazia
 }
 
-type Cause struct {
+type Causes struct {
 	Field   string `json:"field"`
 	Message string `json:"message"`
 }
@@ -23,7 +23,7 @@ func NewBadRequestError(message string) *RestErr {
 }
 
 
-func NewBadRequestValidationError(message string, causes []Cause) *RestErr {
+func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "bad_request",
@@ -78,7 +78,7 @@ func NewConflictError(message string) *RestErr {
 }
 
 // 422 - Unprocessable Entity
-func NewUnprocessableEntityError(message string, causes []Cause) *RestErr {
+func NewUnprocessableEntityError(message string, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "unprocessable_entity",
